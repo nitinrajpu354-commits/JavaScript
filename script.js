@@ -1,23 +1,27 @@
-function getUser(userName, cb) {
-    console.log("Getting user details...");
-    
+function loginUser(username, cb) {
+    console.log("logging in user...")
     setTimeout(() => {
-        cb({id: 101, userName});
+        cb({id: 173, username});
     }, 1000);
 }
 
-function getUserPosts(id, cb) {
-    console.log("Getting user posts...");
+function fetchPermissions(id, cb) {
+    console.log("fetching permissions...");
     
     setTimeout(() => {
-        cb(["fuck you", "Good Morning", "Hello"]);
+        cb(["read", "write", "delete"]);
     }, 2000);
 }
-
-getUser("nitinrajput_574", function(data) {
-    console.log(data.userName);
+function loadDashboard(permissions, cb) {
+    console.log("loading dashboard...");
     
-    getUserPosts(data.id, function(allPosts) {
-        console.log(allPosts);
-    })
+    setTimeout(cb, 2000);
+}
+
+loginUser("Nitin", function (userData) {
+    fetchPermissions(userData.id, function (permissions){
+        loadDashboard(permissions, function () {
+            console.log("dashboard loaded");
+        });
+    });
 });
