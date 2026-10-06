@@ -1,17 +1,9 @@
-function getNum() {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      let num = Math.floor(Math.random() * 10);
+// Error handling in javaScript
 
-      if (num < 5) res(true);
-      else rej(false);
-    }, 2000);
-  });
+try {
+  let a = 12;
+  console.log(a.first.name);
 }
-
-async function abcd() {
-  let ans = await getNum();
-  console.log(ans);
+catch(err) {
+  console.log(err);
 }
-
-abcd();
