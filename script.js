@@ -7,3 +7,6 @@ try {
 catch(err) {
   console.log(err);
 }
+finally {
+  console.log("Hey");
+}
