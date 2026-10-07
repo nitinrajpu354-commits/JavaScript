@@ -1,23 +1,34 @@
-async function getWeather(city) {
-  try {
-    let apikey = "API_KEY";
+const users = ["nitin@gmail.com", "aman@gmail.com", "gojo@gmail.com"];
 
-    let raw = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`,
-    );
+function sendEmail(email) {
+  return new Promise((res, rej) => {
+    let time = Math.floor(Math.random() * 5);
 
-    if(!raw.ok) {
-      let errorData = await raw.json();
-      throw new Error(errorData.message);
-    }
+    setTimeout(function () {
+      let probability = Math.floor(Math.random() * 10);
 
-    let real = await raw.json();
-
-    console.log(real);
-    
-  } catch (err) {
-    console.log(err.message);
-  }
+      if (probability <= 5) {
+        res("Email Successfully sent.");
+      } else {
+        rej("Email not sent.");
+      }
+    }, time * 1000);
+  });
 }
 
-getWeather("Delhi");
+async function sendEmails(userslist) {
+  let allResponses = userslist.map(function(email) {
+    return sendEmail(email)
+    .catch(function(err) {
+      return err;
+    })
+  });
+
+  let ans = await Promise.all(allResponses);
+
+  ans.forEach(function (response) {
+    console.log(response);
+  });
+}
+
+sendEmails(users);
