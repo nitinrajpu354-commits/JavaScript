@@ -1,16 +1,16 @@
-function debounce(fn, delay) {
-  let timer;
-  return function () {
-    clearTimeout(timer);
-    timer = setTimeout(fn, delay);
-  };
+function throttle(fn, delay) {
+  let lastTime = 0;
+  return function(evt) {
+    const currentTime = Date.now();
+    if(currentTime - lastTime >= delay) {
+      lastTime = currentTime;
+      fn(evt);
+    }
+  }
 }
 
-let search_bar = document.querySelector("#search");
 
-search_bar.addEventListener(
-  "input",
-  debounce(function () {
-    console.log("chala");
-  }, 500),
-);
+window.addEventListener("mousemove", throttle(function(evt) {
+  console.log(`x: ${evt.clientX}`);
+  console.log(`y: ${evt.clientY}`);
+}, 2000));
